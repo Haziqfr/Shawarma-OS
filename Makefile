@@ -26,6 +26,14 @@ BOOTLOADER_DIR = src/bootloader/
 
 
 
+#
+# All
+#
+
+all: floppy_image
+
+
+
 
 #
 # Floppy image dependency
@@ -34,14 +42,13 @@ BOOTLOADER_DIR = src/bootloader/
 floppy_image: $(BUILD_DIR)/main_floppy.img
 
 
-
-
 #
 # Creates floppy image
 #
 
-$(BUILD_DIR)/main_floppy.img: bootloader kernel
-
+$(BUILD_DIR)/main_floppy.img: stage1		#bootloader kernel
+	cp $(BUILD_DIR)/stage1.bin $(BUILD_DIR)/main_floppy.img
+	truncate -s 1440k $(BUILD_DIR)/main_floppy.img
 
 
 
@@ -82,6 +89,14 @@ $(BUILD_DIR)/stage2.bin:	always
 
 
 
+
+
+
+#
+# Run
+#
+run: $(BUILD_DIR)/main_floppy.img
+	qemu-system-i386 -fda $(BUILD_DIR)/main_floppy.img
 
 
 

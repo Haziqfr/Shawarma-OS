@@ -28,6 +28,8 @@ puts:
 
 main:
 
+
+  cli
   ; setup data segement
   mov ax, 0     ; we can't write directly to data segement
   mov ds, ax
@@ -36,6 +38,7 @@ main:
   ; setup stack
   mov ss, ax
   mov sp, 0x7C00 ; stack grows downward
+  sti
 
   mov si, msg
   call puts
@@ -47,7 +50,7 @@ main:
 .halt:
   jmp .halt
 
-msg: db "Hello World!", 0
+msg: db "Booting...", 0
 
 
 times 510-($-$$) db 0

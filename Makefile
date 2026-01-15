@@ -4,7 +4,7 @@
 
 ASM = nasm
 CC = gcc
-
+LD=ld
 
 
 #

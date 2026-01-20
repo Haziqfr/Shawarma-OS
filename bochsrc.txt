@@ -1,0 +1,17 @@
+# How much memory
+megs: 32
+
+# Path to your image (adjust path as needed)
+floppya: 1_44="build/main_floppy.img", status=inserted
+
+# Boot from floppy
+boot: floppy
+
+# IMPORTANT: Enable the magic breakpoint
+magic_break: enabled=1
+
+# Log file
+log: bochsout.txt
+
+# Use the internal debugger (GUI version)
+display_library: x, options="gui_debug"

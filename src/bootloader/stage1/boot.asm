@@ -61,8 +61,9 @@ read:
   int 13h
   jc error
 
-;  cmp ah, 0x0000
-;  je error
+  mov al, [0x7E00]
+  cmp al, 0
+  je error
 
   jmp 0x0000:0x7E00
 
@@ -79,6 +80,8 @@ error:
 
 boot_drive: db 0
 err_msg: db "Not found", 0x0D, 0x0A, 0
+.halt:
+  jmp .halt
 msg: db "Booting...", 0x0D, 0x0A, 0
 
 

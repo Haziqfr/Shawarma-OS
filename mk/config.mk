@@ -9,8 +9,11 @@ DD := dd
 OBJCOPY := objcopy
 
 ASFLAGS := -f bin
-WARNFLAGS := -Wall -Wextra -Werror=strict-prototypes -Wold-style-definition -Wundef -Wwrite-strings -Wpointer-arith
-CFLAGS := -g -O0 -ffreestanding -fno-builtin -fno-pie -fno-stack-protector -mno-mmx -mno-sse -nostdlib -nostdinc -I include/ -c
+WARNFLAGS := -Wall -Wextra -Werror=strict-prototypes \
+	-Wold-style-definition -Wundef -Wwrite-strings -Wpointer-arith
+CFLAGS := -g -O0 -ffreestanding -fno-builtin -fno-pie \
+	-fno-stack-protector -mno-mmx -mno-sse -nostdlib \
+	-nostdinc -I include/ -c
 CFLAGS +=
 ASFLAGS_ELF := -f elf32
 

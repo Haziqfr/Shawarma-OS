@@ -9,6 +9,7 @@ compile_commands.json
 *.bin
 *.img
 *.iso
+.obsidian
 
 # Editor specific files
 .idea/

@@ -33,8 +33,8 @@ main:
   cli
   cld    ; clear direction flag so loadsb behaves properly
 
-  ; setup data segement
-  xor ax, ax     ; we can't write directly to data segement
+  ; setup data segment
+  xor ax, ax     ; we can't write directly to data segment
   mov ds, ax
   mov es, ax
 
@@ -155,7 +155,7 @@ chs_read:
   mov ax, 1
   call lba_to_chs
 
-  mov ax, 0x0000    ; segement
+  mov ax, 0x0000    ; segment
   mov es, ax
   mov bx, 0x7E00
   

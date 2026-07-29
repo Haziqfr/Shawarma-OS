@@ -1,6 +1,7 @@
-#ifndef STDIO_H
-#define STDIO_H
+#ifndef SHAWARMAOS_STDIO_H
+#define SHAWARMAOS_STDIO_H
 
-extern void puts(const char *str);
+// Function Prototypes
+void puts(const char *str);
 
-#endif
+#endif /* SHAWARMAOS_STDIO_H */

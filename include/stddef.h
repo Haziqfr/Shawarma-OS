@@ -1,6 +1,8 @@
-#ifndef STDDEF_H
-#define STDDEF_H
+#ifndef SHAWARMAOS_STDDEF_H
+#define SHAWARMAOS_STDDEF_H
 
+// Macro Constants
 #define NULL ((void *)0)
 
-#endif
+
+#endif /* SHAWARMAOS_STDDEF_H */

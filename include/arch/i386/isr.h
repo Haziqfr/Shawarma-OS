@@ -1,8 +1,11 @@
-#ifndef SHAWARMAOS_ISR_H
-#define SHAWARMAOS_ISR_H
+#ifndef ARCH_I386_ISR_H
+#define ARCH_I386_ISR_H
 
+// Includes
 #include <arch/i386/stdint.h>
 
+
+// Types
 struct regs {
 	uint32_t ds;
 
@@ -24,6 +27,8 @@ struct regs {
 	uint32_t eflags;
 };
 
+
+// Function Prototypes
 void isr_handler(struct regs *r);
 
-#endif //SHAWARMAOS_ISR_H
+#endif /* ARCH_I386_ISR_H */

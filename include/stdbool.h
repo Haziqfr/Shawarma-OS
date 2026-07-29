@@ -1,11 +1,14 @@
-#ifndef STDBOOL_H
-#define STDBOOL_H
+#ifndef SHAWARMAOS_STDBOOL_H
+#define SHAWARMAOS_STDBOOL_H
 
-typedef unsigned char uint8_t;
+// Includes
+#include <arch/i386/stdint.h>
 
+// Types
 typedef uint8_t bool; // Bool = 8-bit unsigned integer
 
-#define true 1;
-#define false 0;
+// Macro Constants
+#define true 1
+#define false 0
 
-#endif
+#endif /* SHAWARMAOS_STDBOOL_H */

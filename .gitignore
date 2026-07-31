@@ -9,6 +9,7 @@ compile_commands.json
 *.bin
 *.img
 *.iso
+.clangd
 .obsidian
 
 # Editor specific files

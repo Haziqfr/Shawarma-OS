@@ -19,7 +19,7 @@ static void formatter(va_list args, const char *format);
 static void print_unsigned(uint32_t val);
 static void print_signed(int32_t val);
 static void print_hex(uint32_t val, bool alternate, uint8_t min_digits);
-static void print_pointer(uint32_t ptr);
+static void print_pointer(uintptr_t ptr);
 static uint32_t fast_div100(uint32_t x);
 
 
@@ -86,7 +86,7 @@ static void formatter(va_list args, const char *format)
 		}
 
 		case 'p': {
-			print_pointer(va_arg(args, uint32_t));
+			print_pointer(va_arg(args, uintptr_t));
 			format++;
 			break;
 		}
@@ -187,7 +187,7 @@ static void print_hex(uint32_t val, bool alternate, uint8_t min_digits)
 }
 
 
-static void print_pointer(uint32_t ptr)
+static void print_pointer(uintptr_t ptr)
 {
 	if (!ptr) {
 		const char *nil_str = "(nil)";
@@ -196,7 +196,7 @@ static void print_pointer(uint32_t ptr)
 		}
 		return;
 	}
-	print_hex(ptr, true, 8);
+	print_hex((uint32_t)ptr, true, 8);
 }
 
 

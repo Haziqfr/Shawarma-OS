@@ -4,7 +4,6 @@
 // Includes
 #include <arch/i386/stdint.h>
 
-
 // Types
 struct regs {
 	uint32_t ds;
@@ -27,8 +26,7 @@ struct regs {
 	uint32_t eflags;
 };
 
-
 // Function Prototypes
-void isr_handler(struct regs *r);
+void interrupt_dispatch(struct regs *r);
 
 #endif /* ARCH_I386_ISR_H */

@@ -1,7 +1,7 @@
 [bits 32]
 
 global idt_load
-extern isr_handler
+extern interrupt_dispatch
 
 idt_load:
     cli
@@ -50,7 +50,7 @@ isr_common_stub:
     mov fs, ax
     mov gs, ax
 
-    call isr_handler
+    call interrupt_dispatch
 
     pop eax
     mov ds, ax

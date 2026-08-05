@@ -1,5 +1,5 @@
 #include <drivers/serial/serial.h>
-#include <arch/i386/idt.h>
+#include <arch/i386/interrupt/idt.h>
 #include <drivers/video/vga.h>
 
 void kernel_main(void)

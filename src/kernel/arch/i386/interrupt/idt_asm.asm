@@ -50,7 +50,9 @@ isr_common_stub:
     mov fs, ax
     mov gs, ax
 
+    push esp
     call interrupt_dispatch
+    add esp, 4
 
     pop eax
     mov ds, ax

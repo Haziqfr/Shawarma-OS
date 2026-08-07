@@ -1,4 +1,6 @@
+#include <drivers/timer/timer.h>
 #include <drivers/serial/serial.h>
+#include <arch/i386/interrupt/pic.h>
 #include <arch/i386/interrupt/idt.h>
 #include <drivers/video/vga.h>
 
@@ -15,4 +17,15 @@ void kernel_main(void)
 	serial_puts("Hello from serial\n");
 
 	idt_init();
+
+	pic_init();
+
+	timer_init(100);
+
+	__asm__ volatile("sti");
+
+	for (;;) {
+		__asm__ volatile("hlt");
+	}
+
 }

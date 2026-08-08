@@ -2,6 +2,7 @@
 #define DRIVERS_SERIAL_SERIAL_H
 
 // Macro Constants
+#define TX_BUFFER_SIZE 256
 
 // x86 PC - NS16550
 #define COM1_PORT 0x3F8
@@ -26,6 +27,11 @@
 
 
 // Function Prototypes
+
+// x86 NS16550
+void ns16550_init(void);
+
+// Generic API
 void serial_init(void);
 void serial_putc(char c);
 void serial_puts(const char *str);

@@ -52,7 +52,7 @@ main:
  xor ax, ax
  mov es, ax
  mov ax, 0x0238
- mov cx, 0x0003
+ mov cx, 0x0004
  mov dh, 0
  mov dl, [boot_drive]
  mov bx, 0x9000
@@ -280,7 +280,7 @@ DAP:
     db 0x00      ; reserved, always 0
     dw 0x0038    ; sectors to read
     dw 0x9000, 0x0000        ; loading address
-    dq 0x0000000000000002    ; sector number
+    dq 0x0000000000000003    ; sector number
 
 
 boot_drive: db 0
@@ -288,4 +288,4 @@ lba_status: db 0
 
 msg: db "I am stage1.5, I am alive", 0x0D, 0x0A, 0
 
-times 512-($-$$) db 0
+times 1024-($-$$) db 0

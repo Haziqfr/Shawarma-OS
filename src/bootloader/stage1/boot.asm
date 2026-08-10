@@ -159,7 +159,7 @@ chs_read:
   mov es, ax
   mov bx, 0x7E00
   
-  mov ax, 0x0201    ; AH=02h, AL=01h
+  mov ax, 0x0202    ; AH=02h, AL=02h
 ;  mov al, 1        ; read sector 1
 ;  mov cx, 0x0002    ; CH=0x00 (Cylinder 0), CL=0x02 (Sector 2)
 ;  mov cl, 2
@@ -295,7 +295,7 @@ halt:
 DAP:
     db 0x10      ; size of DAP, 16 bytes
     db 0x00      ; reserved, always 0
-    dw 0x0001    ; sectors to read
+    dw 0x0002    ; sectors to read
     dw 0x7E00, 0x0000        ; loading address
     dq 0x0000000000000001    ; sector number
 

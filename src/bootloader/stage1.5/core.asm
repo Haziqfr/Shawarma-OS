@@ -2,8 +2,8 @@
 [BITS 16]
 
 
-; magic  dw 0xBEEF
-; version dw 1
+BOOTINFO_ADDR      equ 0x6D00
+MMAP_MAX_ENTRIES   equ 128
 
 CODE_SEG equ code_segment_descriptor - gdt_start    ; code segment pointer
 DATA_SEG equ data_segment_descriptor - gdt_start    ; data segment pointer
@@ -285,6 +285,16 @@ DAP:
 
 boot_drive: db 0
 lba_status: db 0
+
+struc BootInfo
+    .magic:         resb 4
+    .version:       resb 2
+
+    .e820_entries:  resb 1
+    .reserved0:     resb 1
+    .e820_table:    resb 2560
+    .reserved1:     resb 1528
+endstruc
 
 msg: db "I am stage1.5, I am alive", 0x0D, 0x0A, 0
 

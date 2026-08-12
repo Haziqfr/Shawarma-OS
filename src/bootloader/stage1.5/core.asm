@@ -4,6 +4,7 @@
 
 BOOTINFO_ADDR      equ 0x6D00
 MMAP_MAX_ENTRIES   equ 128
+MMAP_ENTRY_SIZE    equ 20
 MAGIC              equ 0x88FF1A3B ; crc32("ShawarmaOS Boot Protocol")
 
 CODE_SEG equ code_segment_descriptor - gdt_start    ; code segment pointer
@@ -237,22 +238,23 @@ get_memory_map:
 .next:
     mov eax, 0xE820
     mov edx, 0x534D4150 ; 'SMAP' in little endian
-    mov ecx, 20
+    mov ecx, MMAP_ENTRY_SIZE
 
     int 0x15
 
     jc .fail
     cmp eax, 0x534D4150
     jne .fail
-    cmp ecx, 20
-    jnae .fail
+    cmp ecx, MMAP_ENTRY_SIZE
+    jb .fail
+
+    cmp byte [BOOTINFO_ADDR + BootInfo.e820_entries], MMAP_MAX_ENTRIES
+    jae .fail
 
     inc byte [BOOTINFO_ADDR + BootInfo.e820_entries]
 
-    cmp byte [BOOTINFO_ADDR + BootInfo.e820_entries], MMAP_MAX_ENTRIES
-    ja .fail
 
-    add di, 20
+    add di, MMAP_ENTRY_SIZE
 
     cmp ebx, 0
     je .success

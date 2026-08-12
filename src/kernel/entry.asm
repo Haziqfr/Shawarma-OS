@@ -16,7 +16,9 @@ _start:
     ; setup stack (AGAIN)
     mov esp, 0x90000    ; set the current stack pointer
 
+    push ebx
     call kernel_main
+    add esp, 4
 
 
     jmp .halt

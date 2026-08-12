@@ -4,6 +4,7 @@
 
 BOOTINFO_ADDR      equ 0x6D00
 MMAP_MAX_ENTRIES   equ 128
+MAGIC              equ 0x88FF1A3B ; crc32("ShawarmaOS Boot Protocol")
 
 CODE_SEG equ code_segment_descriptor - gdt_start    ; code segment pointer
 DATA_SEG equ data_segment_descriptor - gdt_start    ; data segment pointer
@@ -44,7 +45,7 @@ main:
 
 .continue:
  ; Magic = crc-32("ShawarmaOS Boot Protocol")
- mov dword [BOOTINFO_ADDR + BootInfo.magic], 0x88FF1A3B
+ mov dword [BOOTINFO_ADDR + BootInfo.magic], MAGIC
  mov word [BOOTINFO_ADDR + BootInfo.version], 0x0100
  call get_memory_map
  mov al, [lba_status]
@@ -78,6 +79,7 @@ main:
   mov eax, cr0
   or  eax, 1               
   mov cr0, eax             ; enable Protected Mode
+  mov ebx, BOOTINFO_ADDR
   jmp CODE_SEG:0x9000    ; flush prefetched instructions and jump to protected mode start
 
   jmp .halt

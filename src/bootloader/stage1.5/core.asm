@@ -43,6 +43,10 @@ main:
 
 
 .continue:
+ ; Magic = crc-32("ShawarmaOS Boot Protocol")
+ mov dword [BOOTINFO_ADDR + BootInfo.magic], 0x88FF1A3B
+ mov word [BOOTINFO_ADDR + BootInfo.version], 0x0100
+ call get_memory_map
  mov al, [lba_status]
  cmp al, 2
  je .lba_read
@@ -220,6 +224,50 @@ ret
 
 
 
+get_memory_map:
+
+    xor bx, bx
+    mov ax, 0x0000
+    mov es, ax
+    mov di, (BOOTINFO_ADDR + BootInfo.e820_table)
+    mov byte [BOOTINFO_ADDR + BootInfo.e820_entries], 0
+
+.next:
+    mov eax, 0xE820
+    mov edx, 0x534D4150 ; 'SMAP' in little endian
+    mov ecx, 20
+
+    int 0x15
+
+    jc .fail
+    cmp eax, 0x534D4150
+    jne .fail
+    cmp ecx, 20
+    jnae .fail
+
+    inc byte [BOOTINFO_ADDR + BootInfo.e820_entries]
+
+    cmp byte [BOOTINFO_ADDR + BootInfo.e820_entries], MMAP_MAX_ENTRIES
+    ja .fail
+
+    add di, 20
+
+    cmp ebx, 0
+    je .success
+
+    jne .next
+
+
+.fail:
+    mov si, mm_failed_msg
+    call puts
+    cli
+    hlt
+    jmp $-4
+
+.success:
+    ret
+
 puts:
  push si
  push ax
@@ -297,5 +345,7 @@ struc BootInfo
 endstruc
 
 msg: db "I am stage1.5, I am alive", 0x0D, 0x0A, 0
+
+mm_failed_msg: db "Unable to detect Memory Map.", 0x0D, 0x0A, "Halting...", 0x0D, 0x0A, 0
 
 times 1024-($-$$) db 0

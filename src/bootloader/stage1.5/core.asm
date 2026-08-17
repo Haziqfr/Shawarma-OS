@@ -339,40 +339,41 @@ boot_drive: db 0
 lba_status: db 0
 
 struc screen_info
-    .lfb_base:   resb 8
-    .lfb_size:   resb 8
+    .lfb_base:   resb 8  ; 0x00
+    .lfb_size:   resb 8  ; 0x08
 
-    .lfb_width:  resb 2
-    .lfb_height: resb 2
-    .lfb_pitch:  resb 2
-    .lfb_depth:  resb 1
+    .lfb_width:  resb 2  ; 0x10
+    .lfb_height: resb 2  ; 0x12
+    .lfb_pitch:  resb 2  ; 0x14
+    .lfb_depth:  resb 1  ; 0x16
 
-    .red_pos:    resb 1
-    .red_size:   resb 1
+    .red_pos:    resb 1  ; 0x17
+    .red_size:   resb 1  ; 0x18
 
-    .green_pos:  resb 1
-    .green_size: resb 1
+    .green_pos:  resb 1  ; 0x19
+    .green_size: resb 1  ; 0x1A
 
-    .blue_pos:   resb 1
-    .blue_size:  resb 1
+    .blue_pos:   resb 1  ; 0x1B
+    .blue_size:  resb 1  ; 0x1C
 
-    .alpha_pos:  resb 1
-    .alpha_size: resb 1
+    .reserved_pos:  resb 1  ; 0x1D
+    .reserved_size: resb 1  ; 0x1E
 
-    .reserved:   resb 33
+    .reserved:   resb 33 ; 0x1F
 
 endstruc
 
 struc BootInfo
-    .magic:         resb 4
-    .version:       resb 2
+    .magic:         resb 4     ; 0x000
+    .version:       resb 2     ; 0x004
 
-    .e820_entries:  resb 1
-    .reserved0:     resb 1
-    .e820_table:    resb 2560
-    .screen_info:   resb screen_info
+    .e820_entries:  resb 1     ; 0x006
+    .reserved0:     resb 1     ; 0x007
+    .e820_table:    resb 2560  ; 0x008
+    .screen_info:   resb screen_info ; 0xA08
 
-    .reserved1:     resb 1464
+    .reserved1:     resb 1464  ; 0xA48
+
 
 endstruc
 

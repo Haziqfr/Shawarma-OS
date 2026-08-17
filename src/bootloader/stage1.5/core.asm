@@ -47,7 +47,7 @@ main:
 .continue:
  ; Magic = crc-32("ShawarmaOS Boot Protocol")
  mov dword [BOOTINFO_ADDR + BootInfo.magic], MAGIC
- mov word [BOOTINFO_ADDR + BootInfo.version], 0x0100
+ mov word [BOOTINFO_ADDR + BootInfo.version], 0x0200
  call get_memory_map
  mov al, [lba_status]
  cmp al, 2
@@ -338,6 +338,31 @@ DAP:
 boot_drive: db 0
 lba_status: db 0
 
+struc screen_info
+    .lfb_base:   resb 8
+    .lfb_size:   resb 8
+
+    .lfb_width:  resb 2
+    .lfb_height: resb 2
+    .lfb_pitch:  resb 2
+    .lfb_depth:  resb 1
+
+    .red_pos:    resb 1
+    .red_size:   resb 1
+
+    .green_pos:  resb 1
+    .green_size: resb 1
+
+    .blue_pos:   resb 1
+    .blue_size:  resb 1
+
+    .alpha_pos:  resb 1
+    .alpha_size: resb 1
+
+    .reserved:   resb 33
+
+endstruc
+
 struc BootInfo
     .magic:         resb 4
     .version:       resb 2
@@ -345,7 +370,10 @@ struc BootInfo
     .e820_entries:  resb 1
     .reserved0:     resb 1
     .e820_table:    resb 2560
-    .reserved1:     resb 1528
+    .screen_info:   resb screen_info
+
+    .reserved1:     resb 1464
+
 endstruc
 
 msg: db "I am stage1.5, I am alive", 0x0D, 0x0A, 0

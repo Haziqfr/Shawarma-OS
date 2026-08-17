@@ -14,6 +14,30 @@ struct boot_e820_entry {
 	uint32_t type;
 } __attribute__((packed));
 
+struct screen_info {
+	uint64_t lfb_base;
+	uint64_t lfb_size;
+
+	uint16_t lfb_width;
+	uint16_t lfb_height;
+	uint16_t pitch;
+	uint8_t lfb_depth;
+
+	uint8_t red_pos;
+	uint8_t red_size;
+
+	uint8_t green_pos;
+	uint8_t green_size;
+
+	uint8_t blue_pos;
+	uint8_t blue_size;
+
+	uint8_t alpha_pos;
+	uint8_t alpha_size;
+
+	uint8_t _reserved0[33];
+} __attribute__((packed));
+
 typedef struct GenesisPage {
 	uint32_t magic;
 	uint16_t version;
@@ -24,7 +48,9 @@ typedef struct GenesisPage {
 
 	struct boot_e820_entry e820_table[E820_MAX_ENTRIES];
 
-	uint8_t _reserved1[1528];
+	struct screen_info screen_info;
+
+	uint8_t _reserved1[1464];
 
 } __attribute__((packed)) BootInfo;
 

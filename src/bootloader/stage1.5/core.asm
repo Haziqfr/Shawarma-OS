@@ -1,6 +1,13 @@
 [ORG 0x7E00]
 [BITS 16]
 
+; Macro to assert compile-time conditions
+%macro static_assert 2
+    %if !( %1 )
+        %fatal %2
+    %endif
+%endmacro
+
 
 BOOTINFO_ADDR      equ 0x6D00
 MMAP_MAX_ENTRIES   equ 128
@@ -230,7 +237,7 @@ ret
 get_memory_map:
 
     xor bx, bx
-    mov ax, 0x0000
+    xor ax, ax
     mov es, ax
     mov di, (BOOTINFO_ADDR + BootInfo.e820_table)
     mov byte [BOOTINFO_ADDR + BootInfo.e820_entries], 0
@@ -363,6 +370,9 @@ struc screen_info
 
 endstruc
 
+%assign ScreenInfoSize screen_info_size
+static_assert (ScreenInfoSize == 64), CRITICAL: ScreenInfo must be 64 bytes. Current size: %[ScreenInfoSize] bytes
+
 struc BootInfo
     .magic:         resb 4     ; 0x000
     .version:       resb 2     ; 0x004
@@ -370,11 +380,13 @@ struc BootInfo
     .e820_entries:  resb 1     ; 0x006
     .reserved0:     resb 1     ; 0x007
     .e820_table:    resb 2560  ; 0x008
-    .screen_info:   resb screen_info ; 0xA08
+    .screen_info:   resb screen_info_size ; 0xA08
 
     .reserved1:     resb 1464  ; 0xA48
 
 
+%assign BootInfoSize BootInfo_size
+static_assert (BootInfoSize == 4096), CRITICAL: BootInfo must be 4096 bytes. Current size: %[BootInfoSize] bytes
 endstruc
 
 msg: db "I am stage1.5, I am alive", 0x0D, 0x0A, 0

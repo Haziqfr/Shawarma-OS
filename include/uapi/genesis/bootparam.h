@@ -8,11 +8,11 @@
 #define E820_MAX_ENTRIES 128
 
 // Types
-struct boot_e820_entry {
+typedef struct __attribute__((packed)) boot_e820_entry {
 	uint64_t addr; /* 0x00 */
 	uint64_t size; /* 0x08 */
 	uint32_t type; /* 0x10 */
-} __attribute__((packed));
+} memory_map_t;
 
 struct screen_info {
 	uint64_t lfb_base;   /* 0x00 */

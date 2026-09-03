@@ -10,7 +10,8 @@ compile_commands.json
 *.img
 *.iso
 .clangd
-.obsidian
+.obsidian/
+.bearrc
 
 # Editor specific files
 .idea/

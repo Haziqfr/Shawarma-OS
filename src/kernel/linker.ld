@@ -6,6 +6,8 @@ SECTIONS
 {
 	. = 0x9000;
 
+	_kernel_start = .;
+
 	.text :
 	{
 	    *(.entry)
@@ -26,5 +28,7 @@ SECTIONS
 	{
 		*(.bss*)
 	}
+
+	_kernel_end = .;
 
 }
